@@ -1,0 +1,31 @@
+\usepackage[tmargin=20mm,bmargin=20mm,lmargin=30mm,rmargin=20mm]{geometry} % Formato de página
+
+\usepackage[output-decimal-marker={,}]{siunitx} % Unidades del SI
+    \sisetup{per-mode = fraction, fraction-function=\sfrac}
+
+\usepackage{csquotes} % Usado por biblatex
+\usepackage[
+    backend = biber,
+    style = apa,
+    sortcites,
+    url = true
+    ]{biblatex} % Citas y referencias bibliográficas
+    \addbibresource{includes/bibliography.bib} % Base de datos de referencias bibliográficas
+
+\usepackage{graphicx}  % Define \includegraphics
+    \graphicspath{{./images/}} % Define \graphicspath{{dir1}{dir2}} para incluir imágenes que estén en los directorios dir1 y dir2
+
+\usepackage{multicol} % Separación en columnas
+    \setlength\columnsep{18pt}
+
+\usepackage[spanish]{babel}  % Traducciones y abreviaturas
+\usepackage{amssymb}  % Símbolos y tipografía matemáticos
+\usepackage{amsmath}  % Formato y estructura matemáticos
+\usepackage{hyperref}  % Define \url{} para hipervínculos
+\usepackage{fancyhdr}  % Encabezado y pie
+\usepackage{pdfpages} % Define \includepdf
+\usepackage{float} % Entorno para imágenes
+\usepackage{enumitem} % Etiquetas para \begin{enumerate}
+% \usepackage{fontspec} % Define \setmainfont{Times New Roman} Requiere LuaLatex
+% \usepackage{newtxtext} % Todo el documento en Times New Roman
+% \usepackage{newtxmath} % Todo el documento en Times New Roman

@@ -1,3 +1,9 @@
+# LaTex
+Latex/build/
+
+# VS Code hidden folders
+.vscode
+
 # Environments
 myenv
 
