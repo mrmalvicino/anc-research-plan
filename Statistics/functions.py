@@ -53,13 +53,13 @@ def perceived_quality(samples_quantity, measurements_per_sample, anc_status):
             if (anc_status[i][j] == 1):
                 weights = [0.6, 0.4] # Si la ANC está encendida, es más probable que escuche con baja calidad
             else:
-                weights = [0.4, 0.6] # Si la ANC está apagada, es más probable que escuche con alta calidad
+                weights = [0.3, 0.7] # Si la ANC está apagada, es más probable que escuche con alta calidad
 
             perceived_quality[i][j] = rnd.choices(values, weights)[0]
 
     return perceived_quality
 
-def inconsistent_outliers(anc_status, measured_noise, perceived_noise, background_noise_max, samples_quantity, measurements_per_sample):
+def list_outliers(anc_status, measured_noise, perceived_noise, background_noise_max, samples_quantity, measurements_per_sample):
     strike_1 = [] # Sensibles
     strike_2 = [] # Sordos
     outliers = [] # Sensibles y sordos (absurdo)
@@ -87,9 +87,9 @@ def remove_outliers(outliers_list, samples_array):
         return samples_array
 
     samples_quantity = len(samples_array)
-    trusted_quantity = len(samples_array) - len(outliers_list)
+    valids_quantity = len(samples_array) - len(outliers_list)
     measurements_per_sample = len(samples_array[0])
-    trusted_array = np.empty((trusted_quantity, measurements_per_sample), int)
+    valids_array = np.empty((valids_quantity, measurements_per_sample), int)
     aux = 0
 
     for i in range(samples_quantity):
@@ -97,8 +97,82 @@ def remove_outliers(outliers_list, samples_array):
             aux -= 1
         else:
             for j in range(measurements_per_sample):
-                trusted_array[aux][j] = samples_array[i][j]
+                valids_array[aux][j] = samples_array[i][j]
 
         aux += 1
 
-    return trusted_array
+    return valids_array
+
+def ravel_noise(anc_status_valid, perceived_noise_valid, measured_noise_valid, background_noise_max):
+    valids_quantity = len(perceived_noise_valid)
+    measurements_per_sample = len(perceived_noise_valid[0])
+
+    # Concatenar las mediciones (con ruido generado) de todos los participantes en una lista
+
+    anc_status_cross = []
+    perceived_noise_cross = []
+
+    for i in range(valids_quantity):
+        for j in range(measurements_per_sample):
+            if (background_noise_max < measured_noise_valid[i][j]): # Solo si hay ruido generado (casos pares)
+                perceived_noise_cross.append(perceived_noise_valid[i][j])
+                anc_status_cross.append(anc_status_valid[i][j])
+
+    # Asignar nombres descriptivos al estado de ANC
+
+    anc_status_meaning = []
+
+    for i in range(len(anc_status_cross)):
+        if (anc_status_cross[i] == 0):
+            anc_status_meaning.append("Apagado")
+        else:
+            anc_status_meaning.append("Encendido")
+
+    # Asignar nombres descriptivos al ruido percibido
+
+    perceived_noise_meaning = []
+
+    for i in range(len(perceived_noise_cross)):
+        if (perceived_noise_cross[i] == 1):
+            perceived_noise_meaning.append("Poco")
+        else:
+            perceived_noise_meaning.append("Mucho")
+
+    return anc_status_meaning, perceived_noise_meaning
+
+def ravel_quality(anc_status_valid, perceived_quality_valid, measured_noise_valid, background_noise_max):
+    valids_quantity = len(perceived_quality_valid)
+    measurements_per_sample = len(perceived_quality_valid[0])
+
+    # Concatenar las mediciones (sin ruido generado) de todos los participantes en una lista
+
+    anc_status_cross = []
+    perceived_quality_cross = []
+
+    for i in range(valids_quantity):
+        for j in range(measurements_per_sample):
+            if (measured_noise_valid[i][j] < background_noise_max): # Solo si no ruido generado (casos impares)
+                perceived_quality_cross.append(perceived_quality_valid[i][j])
+                anc_status_cross.append(anc_status_valid[i][j])
+
+    # Asignar nombres descriptivos al estado de ANC
+
+    anc_status_meaning = []
+
+    for i in range(len(anc_status_cross)):
+        if (anc_status_cross[i] == 0):
+            anc_status_meaning.append("Apagado")
+        else:
+            anc_status_meaning.append("Encendido")
+
+    # Asignar nombres descriptivos al ruido percibido
+
+    perceived_noise_meaning = []
+
+    for i in range(len(perceived_quality_cross)):
+        if (perceived_quality_cross[i] == 1):
+            perceived_noise_meaning.append("Baja")
+        else:
+            perceived_noise_meaning.append("Alta")
+
+    return anc_status_meaning, perceived_noise_meaning
