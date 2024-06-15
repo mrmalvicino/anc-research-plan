@@ -3,7 +3,7 @@ import random as rnd
 import math
 
 def anc_status(samples_quantity, measurements_per_sample):
-    anc_status = np.empty((samples_quantity, measurements_per_sample))
+    anc_status = np.empty((samples_quantity, measurements_per_sample), int)
 
     for i in range(samples_quantity):
         for j in range(0, measurements_per_sample, 4):
@@ -15,7 +15,7 @@ def anc_status(samples_quantity, measurements_per_sample):
     return anc_status
 
 def measured_noise(background_noise_mean, background_noise_deviation, delta_spl, generated_noise_spl, samples_quantity, measurements_per_sample):
-    measured_noise = np.empty((samples_quantity, measurements_per_sample))
+    measured_noise = np.empty((samples_quantity, measurements_per_sample), float)
 
     for i in range(samples_quantity):
         for j in range(measurements_per_sample):
@@ -29,7 +29,7 @@ def measured_noise(background_noise_mean, background_noise_deviation, delta_spl,
     return measured_noise
 
 def perceived_noise(samples_quantity, measurements_per_sample, anc_status, measured_noise, background_noise_max):
-    perceived_noise = np.empty((samples_quantity, measurements_per_sample))
+    perceived_noise = np.empty((samples_quantity, measurements_per_sample), int)
     values = [1, 2]
 
     for i in range(samples_quantity):
@@ -45,15 +45,15 @@ def perceived_noise(samples_quantity, measurements_per_sample, anc_status, measu
 
 
 def perceived_quality(samples_quantity, measurements_per_sample, anc_status):
-    perceived_quality = np.empty((samples_quantity, measurements_per_sample))
+    perceived_quality = np.empty((samples_quantity, measurements_per_sample), int)
     values = [1, 2]
 
     for i in range(samples_quantity):
         for j in range(measurements_per_sample):
             if (anc_status[i][j] == 1):
-                weights = [0.7, 0.3] # Si la ANC está encendida, es más probable que escuche con baja calidad
+                weights = [0.6, 0.4] # Si la ANC está encendida, es más probable que escuche con baja calidad
             else:
-                weights = [0.3, 0.7] # Si la ANC está apagada, es más probable que escuche con alta calidad
+                weights = [0.4, 0.6] # Si la ANC está apagada, es más probable que escuche con alta calidad
 
             perceived_quality[i][j] = rnd.choices(values, weights)[0]
 
@@ -81,3 +81,24 @@ def inconsistent_outliers(anc_status, measured_noise, perceived_noise, backgroun
             outliers.append(i) # Es outlier
 
     return outliers
+
+def remove_outliers(outliers_list, samples_array):
+    if (len(outliers_list) == 0):
+        return samples_array
+
+    samples_quantity = len(samples_array)
+    trusted_quantity = len(samples_array) - len(outliers_list)
+    measurements_per_sample = len(samples_array[0])
+    trusted_array = np.empty((trusted_quantity, measurements_per_sample), int)
+    aux = 0
+
+    for i in range(samples_quantity):
+        if i in outliers_list:
+            aux -= 1
+        else:
+            for j in range(measurements_per_sample):
+                trusted_array[aux][j] = samples_array[i][j]
+
+        aux += 1
+
+    return trusted_array
