@@ -264,7 +264,7 @@ Se pueden identificar entonces los siguientes 4 casos posibles por individuo.
   Caso 4 & Encendido & Con ruido generado \\
   \hline
 \end{tabular}
-\caption{Casos posibles de escucha.}
+\caption{Posibles casos de escucha por sujeto.}
 \label{tab:cases}
 \end{table}
 
@@ -272,13 +272,10 @@ Se pueden identificar entonces los siguientes 4 casos posibles por individuo.
 \label{sec:validation}
 
 Para validar las mediciones, se propone analizar la consistencia de las respuestas de los sujetos.
-Es posible que haya individuos con audición sensible que perciban que hay \bq{mucho ruido} aún así sin emitir la señal de ruido.
+Es posible que haya individuos con audición sensible que perciban que hay \bq{mucho ruido} sin estar en presencia del estímulo de ruido.
 Pero no es posible que perciban \bq{mucho ruido} sin el estímulo y \bq{poco ruido} cuando se está generando ruido adicionado.
-Por lo tanto, si un sujeto percibe poco nivel de ruido en los casos 1 o 2 simultáneamente, será excluido por respuesta inconsistente.
-
-Para este plan de investigación se generaron datos ficticios para representar las respuestas de los sujetos encuestados con el módulo Random de Python.
-Asimismo se programó un algoritmo que produce outliers de manera aleatoria según la condición mencionada anteriormente.
-La tabla \ref{tab:outlier} a conticuación muestra las respuestas de un sujeto que eventualmente se excluiría según este criterio:
+En tal caso, serán excluidos por respuesta inconsistente.
+La tabla \ref{tab:outlier} a conticuación muestra las respuestas de un sujeto que se excluiría según este criterio.
 
 \begin{table}[ht]
     \centering
@@ -295,7 +292,7 @@ La tabla \ref{tab:outlier} a conticuación muestra las respuestas de un sujeto q
       Caso 4 & 1 & Poco ruido \\
       \hline
 \end{tabular}
-\caption{Sujeto a descartar por respuesta inconsistente.}
+\caption{Ejemplo de sujeto a descartar por respuesta inconsistente.}
 \label{tab:outlier}
 \end{table}
 
@@ -314,7 +311,66 @@ Por lo tanto, solo se consideran las respuestas de los sujetos en las que el niv
 \section{Análisis de los resultados: Aplicaciones estadísticas}
 \label{sec:results}
 
+Se ha investigado la presencia de diferencia entre las variables independientes y las dependientes usando el test de $\chi^2$ tras preparar las tablas de contingencia.
+El test de $\chi^2$ es usado para determinar si hay alguna variación entre los dos grupos independientes con respecto a la característica analizada.
 
+En cuanto a la asociación del ruido de fondo percibido con el estado de la ANC (encendido o apagado), el nivel de ruido resulta menor cuando el sistema está encendido.
+La diferencia relacionada al estado del sistema ANC resultó significativa ($\chi^2 = 20.147, p < 0.05$).
+
+En cuanto a la asociación la calidad de sonido percibida con el estado de la ANC (encendido o apagado), la calidad resulta menor cuando el sistema está encendido.
+La diferencia relacionada al estado del sistema ANC resultó significativa ($\chi^2 = 8.861, p < 0.05$).
+
+\begin{table}[ht]
+    \centering
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+        \textbf{Ruido percibido / Estado de ANC} & \textbf{Mucho} & \textbf{Poco} & \textbf{Total} \\
+        \hline
+        Apagado & 25 (43.1\%) & 4 (6.9\%) & 29 (50.0\%) \\
+        \hline
+        Encendido & 7 (12.07\%) & 22 (37.93\%) & 29 (50.0\%) \\
+        \hline
+        Total & 32 (55.17\%) & 26 (44.83\%) & 58 (100.0\%) \\
+        \hline
+\end{tabular}
+\caption{Tabla de contingencia para el nivel de ruido percibido.}
+\label{tab:cross_Y1}
+\end{table}
+
+\begin{center}
+    \includegraphics[width=0.7\linewidth]{images/cross_Y1.png}
+\end{center}
+\vspace{\captionSpace}
+\begin{figure}[H]
+    \caption{Gráfico de barras para el nivel de ruido percibido.}
+    \label{fig:cross_Y1}
+\end{figure}
+
+% \begin{center}
+%     \includegraphics[width=0.7\linewidth]{images/cross_Y2.png}
+% \end{center}
+% \vspace{\captionSpace}
+% \begin{figure}[H]
+%     \caption{Gráfico de barras para la calidad de sonido percibida.}
+%     \label{fig:cross_Y2}
+% \end{figure}
+
+% \begin{table}[ht]
+%     \centering
+%     \begin{tabular}{|c|c|c|c|}
+%         \hline
+%         \textbf{Calidad percibida / Estado de ANC} & \textbf{Alta} & \textbf{Baja} & \textbf{Total} \\
+%         \hline
+%         Apagado & 24 (41.38\%) & 5 (8.62\%) & 29 (50.0\%) \\
+%         \hline
+%         Encendido & 12 (20.69\%) & 17 (29.31\%) & 29 (50.0\%) \\
+%         \hline
+%         Total & 36 (62.07\%) & 22 (37.93\%) & 58 (100.0\%) \\
+%         \hline
+% \end{tabular}
+% \caption{Tabla de contingencia para la calidad de sonido percibida.}
+% \label{tab:cross_Y2}
+% \end{table}
 
 \section{Conclusiones}
 
