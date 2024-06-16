@@ -20,19 +20,25 @@
 \section{Fundamentación e introducción}
 
 Los dispositivos portátiles, como smartphones y tablets, son ampliamente utilizados por todos los grupos de edad.
-Los jóvenes los usan, así como las personas mayores. Sirven para muchas aplicaciones diferentes, como escuchar música o hacer llamadas y conferencias.
+Los jóvenes los usan, así como las personas mayores.
+Sirven para muchas aplicaciones diferentes, como escuchar música o hacer llamadas y conferencias.
 La contaminación acústica en la via pública, vehículos de transporte, sitios de construcción, o instalaciones industriales afecta la calidad de la experiencia de escucha de los usuarios \parencite{Carlettia2008}.
 
-Existen dos formas de reducir el ruido. La reducción pasiva usa materiales porosos para disminuir el ruido por absorción. Pero su implementación en auriculares es voluminosa, costosa e ineficaz en bajas frecuencias. La reducción activa usa el principio de superposición para cancelar las ondas sonoras del ruido.
+Existen dos formas de reducir el ruido.
+La reducción pasiva usa materiales porosos para disminuir el ruido por absorción.
+Pero su implementación en auriculares es voluminosa, costosa e ineficaz en bajas frecuencias.
+La reducción activa usa el principio de superposición para cancelar las ondas sonoras del ruido.
 Los sistemas pasivos no son eficientes en bajas frecuencias ya que, debido a su naturaleza constructiva, no es posible fabricar material absorbente para sonidos cuyas longitudes de onda superen el tamaño de los auriculares.
 La cancelación activa (ANC) ofrece una solución prometedora, ya que según \textcite{Cui2003} resulta efectiva para frecuencias menores a $500 \, \si{\hertz}$ complementándose muy bien con los métodos pasivos.
 Consiste en un sistema que utiliza el principio de superposición para eliminar el ruido no deseado.
 Detecta el ruido no deseado con un micrófono, genera una señal de \bq{anti-ruido} con la misma amplitud pero en fase opuesta, y combina esta señal con el ruido, lo que resulta en la cancelación de ambos sonidos.
 
-Acorde a \textcite{Kuo1999}, es importante que el sistema ANC sea digital. Esto implica que las señales se muestreen y procesen en tiempo real utilizando sistemas de procesamiento de señales digitales.
+Acorde a \textcite{Kuo1999}, es importante que el sistema ANC sea digital.
+Esto implica que las señales se muestreen y procesen en tiempo real utilizando sistemas de procesamiento de señales digitales.
 Para esto se usa un algoritmo de filtro adaptativo que ajusta las características del anti-ruido generado de manera que se minimice el error entre la señal deseada y la cancelada.
 El algoritmo adaptativo más comúnmente utilizado en el control activo de ruido es el algoritmo de mínimos cuadrados medios (LMS, por sus siglas en inglés), el cual se realiza mediante un filtro transversal.
-En un filtro transversal, la señal de entrada se divide en múltiples caminos, cada uno de los cuales está ponderado por un coeficiente. Estos coeficientes son ajustados para lograr la respuesta deseada del filtro \parencite[][16-18]{Widrow1985}.
+En un filtro transversal, la señal de entrada se divide en múltiples caminos, cada uno de los cuales está ponderado por un coeficiente.
+Estos coeficientes son ajustados para lograr la respuesta deseada del filtro \parencite[][16-18]{Widrow1985}.
 
 Este estudio se centra en la evaluación de la cancelación activa a través de pruebas subjetivas en los oyentes para determinar la efectividad de la ANC, la percepción de la reducción del ruido y la existencia de posibles interferencias destructivas que alteren la señal deseada.
 Esto nos permitirá comprender mejor cómo los usuarios perciben y utilizan la ANC en su vida cotidiana, así como identificar áreas de mejora en el diseño y desarrollo de esta tecnología.
@@ -88,15 +94,21 @@ El esquema de la figura \ref{fig:Kotlicki2016} a continuación representa el sis
 
 \subsection{Filtros adaptativos}
 
-Un algoritmo LMS (Least Mean Square, por sus siglas en inglés) es un método adaptativo utilizado para ajustar los coeficientes de un filtro digital con el objetivo de minimizar el valor cuadrático medio de una señal de error. Este proceso de minimización se realiza mediante la actualización iterativa de los coeficientes del filtro basándose en el error actual y las entradas del filtro.
+Un algoritmo LMS (Least Mean Square, por sus siglas en inglés) es un método adaptativo utilizado para ajustar los coeficientes de un filtro digital con el objetivo de minimizar el valor cuadrático medio de una señal de error.
+Este proceso de minimización se realiza mediante la actualización iterativa de los coeficientes del filtro basándose en el error actual y las entradas del filtro.
 
-\textcite{Rees2006} mencionan varias variaciones del LMS, incluyendo el \bq{filtered-X LMS} (FXLMS), que es una versión adaptada para aplicaciones de control activo de ruido, y que tiene en cuenta la respuesta del sistema (o planta) a través del cual la señal de control es aplicada. Los siguientes son los algoritmos propuestos.
+\textcite{Rees2006} mencionan varias variaciones del LMS, incluyendo el \bq{filtered-X LMS} (FXLMS), que es una versión adaptada para aplicaciones de control activo de ruido, y que tiene en cuenta la respuesta del sistema (o planta) a través del cual la señal de control es aplicada.
+Los siguientes son los algoritmos propuestos.
 
-Command-FXLMS ajusta la señal de error hacia un valor de comando dado, en lugar de cero, para controlar el espectro objetivo a una sola frecuencia. Aunque es robusto a errores de amplitud en el modelo de la planta, requiere un esfuerzo de control excesivo cuando la señal de comando está desfasada respecto a la señal de perturbación.
+Command-FXLMS ajusta la señal de error hacia un valor de comando dado, en lugar de cero, para controlar el espectro objetivo a una sola frecuencia.
+Aunque es robusto a errores de amplitud en el modelo de la planta, requiere un esfuerzo de control excesivo cuando la señal de comando está desfasada respecto a la señal de perturbación.
 
-Internal Model FXLMS busca reducir el esfuerzo de control al asegurarse de que la señal de comando y la señal de perturbación estén lo más alineadas en fase posible. Aunque mejora en términos de esfuerzo de control, es muy sensible a errores de amplitud en el modelo de la planta cuando la señal de comando es mucho mayor que la de perturbación.
+Internal Model FXLMS busca reducir el esfuerzo de control al asegurarse de que la señal de comando y la señal de perturbación estén lo más alineadas en fase posible.
+Aunque mejora en términos de esfuerzo de control, es muy sensible a errores de amplitud en el modelo de la planta cuando la señal de comando es mucho mayor que la de perturbación.
 
-Phase Scheduled Command-FXLMS (PSC-FXLMS) combina las fortalezas de los dos algoritmos anteriores. Ajusta la fase de la señal de comando según la fase de la perturbación modelada, mientras que su amplitud es fijada independientemente, lo que limita la influencia de errores de magnitud en el modelo de la planta. Sin embargo, es susceptible a errores de fase cuando la amplitud del comando es grande comparada con la perturbación.
+Phase Scheduled Command-FXLMS (PSC-FXLMS) combina las fortalezas de los dos algoritmos anteriores.
+Ajusta la fase de la señal de comando según la fase de la perturbación modelada, mientras que su amplitud es fijada independientemente, lo que limita la influencia de errores de magnitud en el modelo de la planta.
+Sin embargo, es susceptible a errores de fase cuando la amplitud del comando es grande comparada con la perturbación.
 
 \textcite{Chang2007} proponen un algoritmo llamado algoritmo NFXLMS (Neural-based Filtered-X Least Mean Square) que supera al algoritmo FXLMS en la cancelación de ruido no lineal y de banda ancha, y que mejora la convergencia del algoritmo.
 La figura \ref{fig:Chang2007} que sigue muestra un esquema de la red neuronal empleada.
@@ -116,7 +128,8 @@ En el artículo, mencionan que la red propuesta utiliza 4 nodos de entrada, lo q
 La capa oculta realiza los cálculos y procesamientos intermedios de la red neuronal.
 Cada nodo en esta capa toma como entrada la combinación lineal de los valores de salida de los nodos en la capa de entrada, multiplicados por los pesos correspondientes, y aplica una función de activación no lineal a esta suma ponderada.
 En el caso del algoritmo NFXLMS, esta capa oculta consta de 6 nodos, como se menciona en el artículo.
-En la capa de salida, cada nodo toma como entrada la combinación lineal de los valores de salida de los nodos en la capa oculta, multiplicados por los pesos correspondientes, y aplica una función de activación no lineal. En el algoritmo NFXLMS, esta capa de salida consta de un solo nodo.
+En la capa de salida, cada nodo toma como entrada la combinación lineal de los valores de salida de los nodos en la capa oculta, multiplicados por los pesos correspondientes, y aplica una función de activación no lineal.
+En el algoritmo NFXLMS, esta capa de salida consta de un solo nodo.
 
 Hay dos tipos de sistemas que usan filtros adaptativos: con retroalimentación y de avance.
 Los sistemas de control de avance detectan una señal de ruido de referencia, mientras que en los sistemas de retroalimentación esta señal de referencia se desconoce \parencite{Salmasi2011}.
@@ -127,7 +140,9 @@ En un ANC digital de retroalimentación, se utiliza un micrófono colocado dentr
 Esta señal combinada se compara con la señal de audio deseada, y cualquier diferencia se interpreta como ruido que debe ser cancelado.
 Se genera una señal de anti-ruido que se agrega a la señal de audio para cancelar el ruido percibido.
 
-El principio básico del ANC adaptativo es estimar el ruido principal que se va a cancelar y usarlo como señal de referencia $x(n)$ para el filtro adaptativo $W(z)$. Como se muestra en la figura \ref{fig:Kuo2018}, la señal secundaria $y(n)$ se calcula a partir de la señal de error $e(n)$ medida por el sensor de error para sintetizar la señal de referencia $x(n)$. Los coeficientes del filtro $W(z)$ se actualizan mediante el algoritmo de mínimos cuadrados filtrados (FXLMS) en el tiempo $n$.
+El principio básico del ANC adaptativo es estimar el ruido principal que se va a cancelar y usarlo como señal de referencia $x(n)$ para el filtro adaptativo $W(z)$.
+Como se muestra en la figura \ref{fig:Kuo2018}, la señal secundaria $y(n)$ se calcula a partir de la señal de error $e(n)$ medida por el sensor de error para sintetizar la señal de referencia $x(n)$.
+Los coeficientes del filtro $W(z)$ se actualizan mediante el algoritmo de mínimos cuadrados filtrados (FXLMS) en el tiempo $n$.
 
 \begin{center}
     \includegraphics[width=0.9\linewidth]{images/feedback_ANC.png}
@@ -160,7 +175,11 @@ Los resultados demuestran la efectividad del algoritmo propuesto que proporciona
 
 \section{Diseño de la investigación}
 
-La cancelación activa en auriculares es una tecnología ampliamente utilizada que pretende mejorar la experiencia auditiva al reducir el ruido ambiental. Sin embargo, la efectividad puede variar significativamente según el diseño del auricular, la calidad del hardware y las preferencias individuales del usuario. Este estudio investiga la percepción de la eficacia de la aplicación a través de un enfoque experimental subjetivo. Se expone a participantes voluntarios a diferentes condiciones de ruido y música mientras usan auriculares. Se les pide que evalúen la calidad del sonido, la reducción de ruido percibida y su nivel de satisfacción con la experiencia auditiva.
+La cancelación activa en auriculares es una tecnología ampliamente utilizada que pretende mejorar la experiencia auditiva al reducir el ruido ambiental.
+Sin embargo, la efectividad puede variar significativamente según el diseño del auricular, la calidad del hardware y las preferencias individuales del usuario.
+Este estudio investiga la percepción de la eficacia de la aplicación a través de un enfoque experimental subjetivo.
+Se expone a participantes voluntarios a diferentes condiciones de ruido y música mientras usan auriculares.
+Se les pide que evalúen la calidad del sonido, la reducción de ruido percibida y su nivel de satisfacción con la experiencia auditiva.
 
 En esta investigación se plantea un diseño experimental de alcance correlacional en el cual las siguientes variables se ven involucradas.
 
@@ -189,7 +208,8 @@ En tráfico terrestre el nivel de potencia (SWL) puede llegar a ser de hasta 100
 Para el caso de aplicación de esta investigación, los sujetos se encuentran inmersos en un área urbana cerca de las fuentes de ruido.
 Con lo cual, se espera que algunos ruidos percibidos sean impulsivos y que haya ruido de fondo constante, debido a fuentes lejanas.
 
-Para simular una situación de contaminación sonora, se propone grabar con un micrófono de medición señales de 1 minuto de duración en distintos puntos. Luego, se tomarán fragmentos de los 10 segundos que tengan la información sonora más relevante y representativa de cada situación.
+Para simular una situación de contaminación sonora, se propone grabar con un micrófono de medición señales de 1 minuto de duración en distintos puntos.
+Luego, se tomarán fragmentos de los 10 segundos que tengan la información sonora más relevante y representativa de cada situación.
 Se propone realizar grabaciones de ruido de fondo que representen la siguiente situación: sujeto escuchando música en un colectivo que recorre una calle transitada.
 
 Para garantizar una situación de control, es imprescindible que el recinto donde se lleve a cabo el experimento tenga un nivel de ruido de fondo de $15 \, \si{\deci \bel}$ SPL menor que el nivel del ruido emitido por el sistema de monitoreo en el punto de escucha.
@@ -226,7 +246,8 @@ Se diseña una encuesta para que el individuo registre las apreciaciones dadas e
 En el siguiente enlace \url{https://forms.gle/DxoRxnZtbvwvkUyB9} se puede realizar una encuesta de prueba, idéntica a la que respondería cada sujeto.
 
 El sujeto va a realizar 4 escuchas en un orden aleatorio.
-En cada una se va a variar el nivel del ruido de fondo generado y se va a activar y desactivar el sistema ANC del auricular. Se pueden identificar entonces los siguientes 4 casos posibles.
+En cada una se va a variar el nivel del ruido de fondo generado y se va a activar y desactivar el sistema ANC del auricular.
+Se pueden identificar entonces los siguientes 4 casos posibles por individuo.
 
 \begin{table}[ht]
 \centering
@@ -250,12 +271,50 @@ En cada una se va a variar el nivel del ruido de fondo generado y se va a activa
 \section{Validación de las pruebas}
 \label{sec:validation}
 
-% Si el sujeto percibe baja calidad sonora en los casos 1 o 2, o si percibe mucho ruido en los casos 1 o 3, será excluido por respuestas inconsistentes.
+Para validar las mediciones, se propone analizar la consistencia de las respuestas de los sujetos.
+Es posible que haya individuos con audición sensible que perciban que hay \bq{mucho ruido} aún así sin emitir la señal de ruido.
+Pero no es posible que perciban \bq{mucho ruido} sin el estímulo y \bq{poco ruido} cuando se está generando ruido adicionado.
+Por lo tanto, si un sujeto percibe poco nivel de ruido en los casos 1 o 2 simultáneamente, será excluido por respuesta inconsistente.
+
+Para este plan de investigación se generaron datos ficticios para representar las respuestas de los sujetos encuestados con el módulo Random de Python.
+Asimismo se programó un algoritmo que produce outliers de manera aleatoria según la condición mencionada anteriormente.
+La tabla \ref{tab:outlier} a conticuación muestra las respuestas de un sujeto que eventualmente se excluiría según este criterio:
+
+\begin{table}[ht]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|}
+      \hline
+      \textbf{Escucha} & \textbf{Ruido percibido} & \textbf{Descripción} \\
+      \hline
+      Caso 1 & 2 & Mucho ruido \\
+      \hline
+      Caso 2 & 1 & Poco ruido \\
+      \hline
+      Caso 3 & 1 & Poco ruido \\
+      \hline
+      Caso 4 & 1 & Poco ruido \\
+      \hline
+\end{tabular}
+\caption{Sujeto a descartar por respuesta inconsistente.}
+\label{tab:outlier}
+\end{table}
+
+Una vez desechados los outliers de la muestra, se procede a buscar una posible asociación entre las variables independientes y dependientes.
+Para esto, se llevan a cabo tablas de contingencia que relacionen las variables independientes con las dependientes.
+
+Por un lado se relaciona el estado de la ANC (encendido o apagado) con el nivel de ruido percibido.
+Observar que una respuesta en la que el sujeto indica que hay poco ruido pero el nivel del estímulo es nulo no sería representativa, porque su respuesta no dependería del funcionamiento de la ANC.
+Para que las respuestas sean representativas, es necesario dejar fija la variable \bq{nivel de ruido generado}.
+Por lo tanto, solo se consideran las respuestas de los sujetos en las que se está generando un estímulo de ruido de fondo añadido (casos 2 y 4).
+
+Por otro lado, se relaciona estado de la ANC con la calidad de sonido percibida.
+Nótese que una respuesta en la que haya demasiado ruido de fondo, podría confundir al sujeto en la evaluación de la calidad de sonido.
+Por lo tanto, solo se consideran las respuestas de los sujetos en las que el nivel del estímulo es nulo (casos 1 y 3).
 
 \section{Análisis de los resultados: Aplicaciones estadísticas}
 \label{sec:results}
 
-% 
+
 
 \section{Conclusiones}
 
