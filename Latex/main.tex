@@ -9,7 +9,7 @@
 
 \includepdf{./images/MDLI_cover.pdf}
 \renewcommand\spanishtablename{Tabla}
-\vspace*{3\baselineskip}
+\vspace*{1.7\baselineskip}
 
 \begin{center}
 \textbf{\fontsize{14pt}{16pt}\selectfont Evaluación subjetiva de la cancelación activa de ruido en auriculares}
@@ -49,7 +49,10 @@ Luego se detalla el diseño de la investigación, que comienza en la sección \r
 \textcite{Ang2017} sugiere fuertemente que es necesario considerar entornos con ruido real en estudios futuros para obtener una evaluación más precisa de los auriculares ANC.
 Por este motivo, en la sección \ref{sec:generatedNoise} se proponen diferentes fuentes de ruido.
 Para concluir el diseño de la investigación, en la sección \ref{sec:test} se describe la metodología para llevar a cabo el test subjetivo.
-Finalmente, en las secciones \ref{sec:validation} y \ref{sec:results} se realiza la validación de las pruebas y el análisis de los resultados respectivamente.
+En la sección \ref{sec:validation} se realiza la validación de las pruebas para asegurar la confiabilidad de los datos obtenidos.
+En la sección \ref{sec:results} se presenta un análisis exhaustivo de los resultados obtenidos.
+Además, en la sección \ref{sec:conclusions}, se presentan las conclusiones derivadas de los resultados obtenidos.
+Finalmente, en la sección \ref{sec:furtherInvestigation}, se discuten las posibles líneas de investigación futuras.
 
 \section{Objetivos general y específicos}
 \label{sec:objectives}
@@ -88,7 +91,7 @@ El esquema de la figura \ref{fig:Kotlicki2016} a continuación representa el sis
 \end{center}
 \vspace{\captionSpace}
 \begin{figure}[H]
-    \caption{Diagrama de bloques por \textcite{Kotlicki2016}.}
+    \caption{Diagrama de sistema ANC analógico por \textcite{Kotlicki2016}.}
     \label{fig:Kotlicki2016}
 \end{figure}
 
@@ -118,7 +121,7 @@ La figura \ref{fig:Chang2007} que sigue muestra un esquema de la red neuronal em
 \end{center}
 \vspace{\captionSpace}
 \begin{figure}[H]
-    \caption{Arquitectura de red neuronal \textcite[][3]{Chang2007}.}
+    \caption{Arquitectura de red neuronal NFXLMS por \textcite[][3]{Chang2007}.}
     \label{fig:Chang2007}
 \end{figure}
 
@@ -149,7 +152,7 @@ Los coeficientes del filtro $W(z)$ se actualizan mediante el algoritmo de mínim
 \end{center}
 \vspace{\captionSpace}
 \begin{figure}[H]
-    \caption{Diagrama de bloques por \textcite[][3]{Kuo2018}.}
+    \caption{Diagrama de bloques de ANC retroalimentado por \textcite[][3]{Kuo2018}.}
     \label{fig:Kuo2018}
 \end{figure}
 
@@ -312,13 +315,16 @@ Por lo tanto, solo se consideran las respuestas de los sujetos en las que el niv
 \label{sec:results}
 
 Se ha investigado la presencia de diferencia entre las variables independientes y las dependientes usando el test de $\chi^2$ tras preparar las tablas de contingencia.
-El test de $\chi^2$ es usado para determinar si hay alguna variación entre los dos grupos independientes con respecto a la característica analizada.
+El test $\chi^2$ es usado para determinar si hay alguna variación entre los dos grupos independientes respecto a la característica analizada.
 
-En cuanto a la asociación del ruido de fondo percibido con el estado de la ANC (encendido o apagado), el nivel de ruido resulta menor cuando el sistema está encendido.
-La diferencia relacionada al estado del sistema ANC resultó significativa ($\chi^2 = 20.147, p < 0.05$).
-
-En cuanto a la asociación de la calidad de sonido percibida con el estado de la ANC (encendido o apagado), la calidad resulta menor cuando el sistema está encendido.
-La diferencia relacionada al estado del sistema ANC resultó significativa ($\chi^2 = 8.861, p < 0.05$).
+\begin{center}
+    \includegraphics[width=0.7\linewidth]{images/cross_Y1.png}
+\end{center}
+\vspace{\captionSpace}
+\begin{figure}[H]
+    \caption{Gráfico de barras para el nivel de ruido percibido.}
+    \label{fig:cross_Y1}
+\end{figure}
 
 \begin{table}[ht]
     \centering
@@ -337,42 +343,14 @@ La diferencia relacionada al estado del sistema ANC resultó significativa ($\ch
 \label{tab:cross_Y1}
 \end{table}
 
-\begin{center}
-    \includegraphics[width=0.7\linewidth]{images/cross_Y1.png}
-\end{center}
-\vspace{\captionSpace}
-\begin{figure}[H]
-    \caption{Gráfico de barras para el nivel de ruido percibido.}
-    \label{fig:cross_Y1}
-\end{figure}
+En cuanto a la asociación del ruido de fondo percibido con el estado de la ANC (encendido o apagado), el nivel de ruido resulta menor cuando el sistema está encendido.
+La diferencia relacionada al estado del sistema ANC resultó significativa ($\chi^2 = 20.147, p < 0.05$).
 
-% \begin{center}
-%     \includegraphics[width=0.7\linewidth]{images/cross_Y2.png}
-% \end{center}
-% \vspace{\captionSpace}
-% \begin{figure}[H]
-%     \caption{Gráfico de barras para la calidad de sonido percibida.}
-%     \label{fig:cross_Y2}
-% \end{figure}
-
-% \begin{table}[ht]
-%     \centering
-%     \begin{tabular}{|c|c|c|c|}
-%         \hline
-%         \textbf{Calidad percibida / Estado de ANC} & \textbf{Alta} & \textbf{Baja} & \textbf{Total} \\
-%         \hline
-%         Apagado & 24 (41.38\%) & 5 (8.62\%) & 29 (50.0\%) \\
-%         \hline
-%         Encendido & 12 (20.69\%) & 17 (29.31\%) & 29 (50.0\%) \\
-%         \hline
-%         Total & 36 (62.07\%) & 22 (37.93\%) & 58 (100.0\%) \\
-%         \hline
-% \end{tabular}
-% \caption{Tabla de contingencia para la calidad de sonido percibida.}
-% \label{tab:cross_Y2}
-% \end{table}
+En cuanto a la asociación de la calidad de sonido percibida con el estado de la ANC (encendido o apagado), la calidad resulta menor cuando el sistema está encendido.
+La diferencia relacionada al estado del sistema ANC resultó significativa ($\chi^2 = 8.861, p < 0.05$).
 
 \section{Conclusiones}
+\label{sec:conclusions}
 
 En primer lugar, se espera que las pruebas subjetivas permitan determinar la efectividad percibida de la ANC en la reducción del ruido ambiental.
 Se busca analizar la encuenta para ver si los participantes reportan una mejora significativa en la calidad de la experiencia auditiva al utilizar dispositivos equipados con ANC en entornos ruidosos, como calles transitadas, espacios de trabajo compartidos o transporte público.
@@ -381,6 +359,7 @@ Además, se busca evaluar la percepción de los usuarios sobre la interferencia 
 Se espera que los participantes informen sobre la presencia o ausencia de efectos no deseados, como distorsión del sonido, sensación de presión en los oídos o alteración de la calidad de la música reproducida.
 
 \section{Líneas futuras de investigación}
+\label{sec:furtherInvestigation}
 
 Una posible línea de investigación a futuro podría incluir la simulación para ejecutar algoritmos de filtrado, con un enfoque particular en el algoritmo de Mínimos Cuadrados Medios (LMS, por sus siglas en inglés).
 Se podría desarrollar un software que simule la captación del ruido y su cancelación en una señal deseada mediante la implementación del algoritmo LMS.

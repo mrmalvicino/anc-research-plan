@@ -1,9 +1,10 @@
-\usepackage[tmargin=20mm,bmargin=20mm,lmargin=30mm,rmargin=20mm]{geometry} % Formato de página
+\usepackage[tmargin=17mm,bmargin=17mm,lmargin=27mm,rmargin=17mm]{geometry} % Formato de página
 
 \usepackage[output-decimal-marker={,}]{siunitx} % Unidades del SI
     \sisetup{per-mode = fraction, fraction-function=\sfrac}
 
 \usepackage{csquotes} % Usado por biblatex
+
 \usepackage[
     backend = biber,
     style = apa,
@@ -19,13 +20,26 @@
     \setlength\columnsep{18pt}
 
 \usepackage[spanish]{babel}  % Traducciones y abreviaturas
+
 \usepackage{amssymb}  % Símbolos y tipografía matemáticos
+
 \usepackage{amsmath}  % Formato y estructura matemáticos
+
 \usepackage[colorlinks=false, pdfborder={0 0 0}]{hyperref}  % Define \url{} para hipervínculos
+
 \usepackage{fancyhdr}  % Encabezado y pie
+
 \usepackage{pdfpages} % Define \includepdf
+
 \usepackage{float} % Entorno para imágenes
+
 \usepackage{enumitem} % Etiquetas para \begin{enumerate}
+    \setlist[itemize]{itemsep=-1.5mm}
+
 % \usepackage{fontspec} % Define \setmainfont{Times New Roman} (requiere LuaLatex)
-%     \setmainfont{Times New Roman} % (requiere LuaLatex)
-\usepackage{mathptmx}  % Documento con Times New Roman
+%     \setmainfont{Times New Roman} % Documento con Times New Roman (requiere LuaLatex)
+
+\usepackage{mathptmx}  % Documento con simil Times New Roman (compila con TexPDF)
+
+\usepackage{caption} % Define \captionsetup{font=footnotesize}
+    \captionsetup{font=small} % Ajusta el tamaño de la fuente de las leyendas
