@@ -8,7 +8,7 @@ Plan de investigación para la evaluación subjetiva de la cancelación activa d
 ## Descargar PDF
 
 &nbsp;
-Cada vez que se realiza un cambio, una nueva versión del documento es compilada y publicada en [Releases](https://github.com/mrmalvicino/anc-research-plan/releases) y puede ser descargada libremente.
+Cada vez que se realiza un cambio, una nueva versión del documento es compilada y publicada en [Releases](https://github.com/mrmalvicino/anc-research-plan/releases) automáticamente.
 
 &nbsp;
 Cabe aclarar que el compilador TexPDF no admite el paquete `fontspec` para usar Times New Roman. Para que funcione la automatización, este paquete está comentado en [packages.tex](./latex/include/packages.tex) y en su lugar se está usando `mathptmx`:
